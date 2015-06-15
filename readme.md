@@ -51,8 +51,8 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##Changelog
-`2015-06-16` Update license and attach it properly.
-`2015-06-15` Initial public release with basic docs.
+* `2015-06-16` feat(license): update license to GPLv3 and attach it properly.
+* `2015-06-15` initial public release
 
 ##License
 Copyright &copy; 2015 Rick Hambrook
