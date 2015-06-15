@@ -44,7 +44,6 @@ Nest is for working with arrays and objects were you aren't always sure of the d
 Tell me if you loved it. Tell me if you hated it. Tell me if you used it and thought "meh". I'm keen to hear your feedback.
 
 ##Roadmap
-* Choose a licence
 * Add composer support
 * Add any other standard documentation that should be included
 * Add tests for setting
@@ -52,4 +51,21 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##Changelog
+`2015-06-16` Update license and attach it properly.
 `2015-06-15` Initial public release with basic docs.
+
+##License
+Copyright &copy; 2015 Rick Hambrook
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
