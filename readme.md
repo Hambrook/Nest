@@ -8,34 +8,42 @@ Need a value from an array that is returned by a function that requires paramete
 
 ##Example
 
-	$Nest = new Nest(
-		[
-			"foo" => "bar",
-			"one" => [
-				"two" => "three"
-			]
+```php
+$Nest = new \Hambrook\Nest(
+	[
+		"foo" => "bar",
+		"one" => [
+			"two" => "three"
 		]
-	);
+	]
+);
+```
 
 ####Use a string as the path parameter
 
-	$value = $Nest->get("foo");
-	// "bar"
+```php
+$value = $Nest->get("foo");
+// "bar"
+```
 
 ####We're going two levels in this time, so use an array for the path
 
-	$value = $Nest->get(["one", "two"]);
-	// "three"
+```php
+$value = $Nest->get(["one", "two"]);
+// "three"
+```
 
 ####What if we try to get something that isn't there? Does it error?
-
-	$value = $Nest->get(["nope", "two"]);
-	// returns `null`, not an error
+```php
+$value = $Nest->get(["nope", "two"]);
+// returns `null`, not an error
+```
 
 ####Or we can specify our own default in case of error
-
-	$value = $Nest->get(["nope", "two"], "safe");
-	// returns "safe", not an error
+```php
+$value = $Nest->get(["nope", "two"], "safe");
+// returns "safe", not an error
+```
 
 ##Who is it for?
 Nest is for working with arrays and objects were you aren't always sure of the data. It works great with the `Config` class for storing configuration data for other classes or CLI scripts. But it can be used anywhere.
@@ -51,7 +59,8 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##Changelog
-* `2015-06-16` feat(license): update license to GPLv3 and attach it properly.
+* `2015-06-17` feat(docs): update docs formatting to include syntax highlighting on Github
+* `2015-06-16` feat(license): update license to GPLv3 and attach it properly
 * `2015-06-15` initial public release
 
 ##License
