@@ -27,16 +27,25 @@ namespace Hambrook;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class Nest implements \Iterator {
-	private $data           = [];
-	private $magicSeparator = "__";
-	private $position       = 0;
-	private $keys           = [];
-	private $dirty          = true;
+	// Scope all of this inside one variable to minimise collisions
+	private $_ = [
+		"data"           => [],
+		"magicSeparator" => "__",
+		"position"       => 0,
+		"keys"           => [],
+		"dirty"          => true
+	];
 
+	/**
+	 * __CONSTRUCT
+	 *
+	 * @param  array   $path            Array or object to set as the data
+	 * @param  string  $magicSeparator  String to separate path levels for magic methods
+	 */
 	public function __construct($data=[], $magicSeparator="__") {
-		$this->data = $data;
-		$this->magicSeparator = preg_quote($magicSeparator, "/");
-		$dirty = true;
+		$this->_["data"]            = $data;
+		$this->_["magicSeparator"] = preg_quote($magicSeparator, "/");
+		$this->_["dirty"]           = true;
 	}
 
 	/**
@@ -53,10 +62,10 @@ class Nest implements \Iterator {
 	 */
 	public function get($path=false, $default=null) {
 		if (func_num_args() == 0) {
-			return $this->data;
+			return $this->_["data"];
 		}
 
-		$var = $this->data;
+		$var = $this->_["data"];
 		if (!is_array($var) && !is_object($var)) { return $default; }
 		if (!is_array($path)) { $path = [$path]; }
 		foreach ($path as $level) {
@@ -105,7 +114,7 @@ class Nest implements \Iterator {
 	 */
 	public function set($path, $value=null) {
 		if (!is_array($path)) { $path = [$path]; }
-		$tmp =& $this->data;
+		$tmp =& $this->_["data"];
 		foreach ($path as $level) {
 			if (!is_array($tmp) && !is_object($tmp)) {
 				$tmp = [];
@@ -127,7 +136,7 @@ class Nest implements \Iterator {
 			$tmp = $value;
 		}
 
-		$this->dirty = true;
+		$this->_["dirty"] = true;
 
 		return $this;
 	}
@@ -143,11 +152,11 @@ class Nest implements \Iterator {
 	 */
 	public function data($data=[]) {
 		if (func_num_args()) {
-			$this->data = $data;
-			$this->dirty = true;
+			$this->_["data"]  = $data;
+			$this->_["dirty"] = true;
 			return $this;
 		}
-		return $this->data;
+		return $this->_["data"];
 	}
 
 
@@ -299,7 +308,7 @@ class Nest implements \Iterator {
 	 * @return  this           The generated JSON
 	 */
 	public function loadJSON($json) {
-		$this->data = @json_decode($json, true);
+		$this->data(@json_decode($json, true));
 		$dirty = true;
 		return $this;
 	}
@@ -430,7 +439,7 @@ class Nest implements \Iterator {
 	 */
 	public function _convertStringToPath($path) {
 		return preg_split(
-			"/".$this->magicSeparator."/",
+			"/".$this->_["magicSeparator"]."/",
 			ltrim($path, "_"),
 			NULL,
 			PREG_SPLIT_NO_EMPTY
@@ -446,54 +455,48 @@ class Nest implements \Iterator {
 	* @internal
 	*/
 	public function rewind() {
-		$this->position = 0;
+		$this->_["position"] = 0;
 	}
 
 	/**
 	* @internal
 	*/
 	public function current() {
-		$this->cleanIndex();
-		$key = $this->keys[$this->position];
-		if (is_array($this->data)) {
-			return $this->data[$key];
-		}
-		if (is_object($this->data)) {
-			return $this->data->$key;
-		}
+		$this->_cleanIndex();
+		return $this->get($this->_["keys"][$this->_["position"]]);
 	}
 
 	/**
 	* @internal
 	*/
 	public function key() {
-		return $this->keys[$this->position];
+		return $this->_["keys"][$this->_["position"]];
 	}
 
 	/**
 	* @internal
 	*/
 	public function next() {
-		if (!array_key_exists(++$this->position, $this->keys)) {
+		if (!array_key_exists(++$this->_["position"], $this->_["keys"])) {
 			return null;
 		}
-		$this->keys[$this->position];
+		$this->_["keys"][$this->_["position"]];
 	}
 
 	/**
 	* @internal
 	*/
 	public function valid() {
-		$this->cleanIndex();
-		if (!array_key_exists($this->position, $this->keys)) {
+		$this->_cleanIndex();
+		if (!array_key_exists($this->_["position"], $this->_["keys"])) {
 			return false;
 		}
-		$key = $this->keys[$this->position];
-		if (is_array($this->data)) {
-			return isset($this->data[$key]);
+		$key = $this->_["keys"][$this->_["position"]];
+		if (is_array($this->_["data"])) {
+			return isset($this->_["data"][$key]);
 		}
-		if (is_object($this->data)) {
-			return isset($this->data->$key);
+		if (is_object($this->_["data"])) {
+			return isset($this->_["data"]->$key);
 		}
 		return false;
 	}
@@ -501,19 +504,19 @@ class Nest implements \Iterator {
 	/**
 	* @internal
 	*/
-	private function cleanIndex() {
-		if (!$this->dirty) {
+	private function _cleanIndex() {
+		if (!$this->_["dirty"]) {
 			return true;
 		}
-		if (is_array($this->data)) {
-			$this->keys = array_keys($this->data);
+		if (is_array($this->_["data"])) {
+			$this->_["keys"] = array_keys($this->_["data"]);
 		} else
-		if (is_object($this->data)) {
-			$this->keys = get_object_vars($this->data);
+		if (is_object($this->_["data"])) {
+			$this->_["keys"] = array_keys(get_object_vars($this->_["data"]));
 		} else {
 			return $this;
 		}
-		$this->dirty = false;
+		$this->_["dirty"] = false;
 		return $this;
 	}
 }
