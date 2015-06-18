@@ -8,7 +8,7 @@ namespace Hambrook;
  * Easily get and set nested items within arrays and objects without the hassle of validation.
  *
  * @package    Nest
- * @version    1.0.4
+ * @version    1.0.5
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
  * @license    https://www.gnu.org/licenses/gpl.txt  GNU General Public License v3
