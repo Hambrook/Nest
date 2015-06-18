@@ -39,7 +39,7 @@ class Nest implements \Iterator {
 	/**
 	 * __CONSTRUCT
 	 *
-	 * @param  array   $path            Array or object to set as the data
+	 * @param  array   $data            Array or object to set as the data
 	 * @param  string  $magicSeparator  String to separate path levels for magic methods
 	 */
 	public function __construct($data=[], $magicSeparator="__") {
