@@ -59,6 +59,8 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##Changelog
+* `2015-06-18` feat(tests): update tests and 'foreach' tests
+* `2015-06-18` fix(foreach): fix foreach iteration not working on objects
 * `2015-06-17` feat(docs): make Config keyword a link
 * `2015-06-17` feat(docs): update docs formatting to include syntax highlighting on Github
 * `2015-06-16` feat(license): update license to GPLv3 and attach it properly
