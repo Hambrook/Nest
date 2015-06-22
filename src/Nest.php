@@ -8,7 +8,7 @@ namespace Hambrook;
  * Easily get and set nested items within arrays and objects without the hassle of validation.
  *
  * @package    Nest
- * @version    1.0.5
+ * @version    1.1.0
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
  * @license    https://www.gnu.org/licenses/gpl.txt  GNU General Public License v3
@@ -39,7 +39,7 @@ class Nest implements \Iterator {
 	/**
 	 * __CONSTRUCT
 	 *
-	 * @param  array   $path            Array or object to set as the data
+	 * @param  array   $data            Array or object to set as the data
 	 * @param  string  $magicSeparator  String to separate path levels for magic methods
 	 */
 	public function __construct($data=[], $magicSeparator="__") {
@@ -61,7 +61,7 @@ class Nest implements \Iterator {
 	 * @todo    Add support for function arguments on objects by adding callables to the path array
 	 */
 	public function get($path=false, $default=null) {
-		if (func_num_args() == 0) {
+		if (func_num_args() == 0 || $path === false) {
 			return $this->_["data"];
 		}
 
@@ -127,7 +127,7 @@ class Nest implements \Iterator {
 			} else
 			if (is_object($tmp)) {
 				if (!isset($tmp->$level)) {
-					$tmp->$level = new stdClass();
+					$tmp->$level = new \stdClass();
 				}
 				$tmp =& $tmp->$level;
 			}
@@ -256,7 +256,7 @@ class Nest implements \Iterator {
 	 *
 	 * @return  $this                   Return self, for chaining
 	 */
-	public function count($path, $default=0) {
+	public function count($path=false, $default=0) {
 		$tmp = $this->get($path);
 		if (!is_array($tmp)) {
 			return $default;
