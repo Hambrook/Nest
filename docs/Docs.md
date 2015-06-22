@@ -181,6 +181,18 @@ Decode the `$json` and replace the internal dataset with the data.
 
 Export the current dataset as JSON. `$pretty` will format the output in a more human-readable manner.
 
+#Unit Testing
+There a numerous tests built for the [PHPUnit](https://phpunit.de) testing package.You will need to install PHPUnit globally...
+```bash
+wget https://phar.phpunit.de/phpunit.phar
+chmod +x phpunit.phar
+sudo mv phpunit.phar /usr/local/bin/phpunit
+```
+then run it on the `tests` directory.
+```bash
+phpunit path/to/Nest/tests
+```
+
 ##License
 Copyright &copy; 2015 Rick Hambrook
 
