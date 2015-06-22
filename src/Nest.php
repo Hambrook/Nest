@@ -61,7 +61,7 @@ class Nest implements \Iterator {
 	 * @todo    Add support for function arguments on objects by adding callables to the path array
 	 */
 	public function get($path=false, $default=null) {
-		if (func_num_args() == 0) {
+		if (func_num_args() == 0 || $path === false) {
 			return $this->_["data"];
 		}
 
@@ -256,7 +256,7 @@ class Nest implements \Iterator {
 	 *
 	 * @return  $this                   Return self, for chaining
 	 */
-	public function count($path, $default=0) {
+	public function count($path=false, $default=0) {
 		$tmp = $this->get($path);
 		if (!is_array($tmp)) {
 			return $default;
