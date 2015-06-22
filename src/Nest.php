@@ -127,7 +127,7 @@ class Nest implements \Iterator {
 			} else
 			if (is_object($tmp)) {
 				if (!isset($tmp->$level)) {
-					$tmp->$level = new stdClass();
+					$tmp->$level = new \stdClass();
 				}
 				$tmp =& $tmp->$level;
 			}
