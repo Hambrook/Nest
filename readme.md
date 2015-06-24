@@ -71,8 +71,6 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 ##Roadmap
 * Add composer support
 * Add any other standard documentation that should be included
-* Add tests for setting
-* A proper test suite, but something nice and compact
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##Changelog
