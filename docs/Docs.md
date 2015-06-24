@@ -193,7 +193,7 @@ then run it on the `tests` directory.
 phpunit path/to/Nest/tests
 ```
 
-##License
+#License
 Copyright &copy; 2015 Rick Hambrook
 
 This program is free software: you can redistribute it and/or modify
