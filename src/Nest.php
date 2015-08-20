@@ -299,6 +299,42 @@ class Nest extends \ArrayObject {
 	}
 
 	/**
+	 * SORT
+	 *
+	 * Sort an array by sort method
+	 *
+	 * @param   array|string     $path             The path to the nested array sort
+	 * @param   string           $method           Optional sort method
+	 * @param   callable|string  $flagsOrCallable  Optional flags or callback
+	 *
+	 * @return  $this                              Return self, for chaining
+	 */
+	public function sort($path=false, $method="", $flagsOrCallable=false) {
+		$data = $this->get($path);
+		$tmp = &$data;
+
+		if (!is_array($tmp)) {
+			return $this;
+		}
+
+		if (!is_callable($method)) {
+			$method = $method."sort";
+		}
+		if (!is_callable($method)) {
+			return $this;
+		}
+
+		if ($flagsOrCallable) {
+			call_user_func($method, $tmp, $flagsOrCallable);
+		} else {
+			call_user_func($method, $tmp);
+		}
+
+		$this->set($path, $tmp);
+		return $this;
+	}
+
+	/**
 	 * COUNT
 	 *
 	 * Count the items at the path
