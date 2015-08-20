@@ -60,13 +60,17 @@ class Nest extends \ArrayObject {
 	 *
 	 * @todo    Add support for function arguments on objects by adding callables to the path array
 	 */
-	public function get($path=false, $default=null) {
+	public function get($path=false, $default=null, $issetCheck=false) {
 		if (func_num_args() == 0 || $path === false) {
-			return $this->_["data"];
+			return ($issetCheck) ? isset($this->_["data"]) : $this->_["data"];
+		}
+
+		if ($issetCheck) {
+			$default = false;
 		}
 
 		$var = $this->_["data"];
-		if (!is_array($var) && !is_object($var)) { return $default; }
+		if (!is_array($var) && !is_object($var) && !$issetCheck) { return $default; }
 		if (!is_array($path)) { $path = [$path]; }
 		foreach ($path as $level) {
 			if (is_array($level)) {
@@ -99,7 +103,7 @@ class Nest extends \ArrayObject {
 			}
 		}
 
-		return $var;
+		return ($issetCheck) ?: $var;
 	}
 
 	/**
@@ -143,6 +147,50 @@ class Nest extends \ArrayObject {
 		$this->_["dirty"] = true;
 
 		return $this;
+	}
+
+	/**
+	 * EXISTS
+	 *
+	 * Determine if a value is set or not
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  bool                 Whether or not the value is set
+	 */
+	public function exists($path=false) {
+		return $this->get($path, false, true);
+	}
+
+	/**
+	 * UNSET
+	 *
+	 * Determine if a value is set or not
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  this                 This
+	 */
+	public function delete($path=false) {
+		if (!is_array($path)) {
+			$path = [$path];
+		}
+		// Is there nothing to unset?
+		if (!$this->exists($path)) { return $this; }
+		$key = array_pop($path);
+		if (!$this->exists($path)) { return $this; }
+		$tmp = $this->get($path);
+		if (is_array($tmp)) {
+			unset($tmp[$key]);
+		}
+		if (is_object($tmp)) {
+			unset($tmp->$key);
+		}
+		$this->set($path, $tmp);
+		return $this;
+	}
+	public function remove($path=false) {
+		return $this->delete($path);
 	}
 
 	/**
@@ -389,6 +437,32 @@ class Nest extends \ArrayObject {
 			$this->_convertStringToPath($path),
 			$value
 		);
+	}
+
+	/**
+	 * __ISSET
+	 *
+	 * Magic isset method
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  bool                 Whether or not the value is set
+	 */
+	public function __isset($path=false) {
+		return $this->exists($this->_convertStringToPath($path));
+	}
+
+	/**
+	 * __UNSET
+	 *
+	 * Magic unset method
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  this                 This
+	 */
+	public function __unset($path=false) {
+		return $this->delete($this->_convertStringToPath($path));
 	}
 
 
