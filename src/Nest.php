@@ -112,7 +112,11 @@ class Nest extends \ArrayObject {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function set($path, $value=null) {
+	public function set($path=false, $value=null) {
+		if ($path === false) {
+			$this->_["data"] = $value;
+			return $this;
+		}
 		if (!is_array($path)) { $path = [$path]; }
 		$tmp =& $this->_["data"];
 		foreach ($path as $level) {
@@ -232,7 +236,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function append($path, $value=null, $force=true) {
+	public function append($path=false, $value=null, $force=true) {
 		$tmp = $this->get($path);
 		if (!is_array($tmp)) {
 			if (!$force) {
@@ -276,7 +280,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function merge($path, $value=[], $force=true) {
+	public function merge($path=false, $value=[], $force=true) {
 		$tmp = $this->get($path);
 		if (!is_array($value) || !count($value)) {
 			return $this;
@@ -293,6 +297,10 @@ class Nest extends \ArrayObject {
 		return $this;
 	}
 
+	public function getIterator() {
+		return new \ArrayIterator($this->_["data"]);
+    }
+
 
 	/*************************************************************************
 	 *  JSON FUNCTIONS                                                       *
@@ -305,7 +313,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   string  $json  The JSON string to decode and load
 	 *
-	 * @return  this           The generated JSON
+	 * @return  this           This
 	 */
 	public function loadJSON($json) {
 		$this->data(@json_decode($json, true));
