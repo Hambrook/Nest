@@ -26,19 +26,19 @@ class dataTest extends PHPUnit_Framework_TestCase {
 		// Valid
 		$Nest->data($this->data);
 		// First level
-		$this->assertEquals($Nest->foo, "bar");
+		$this->assertEquals("bar",     $Nest->foo);
 		// Nested
-		$this->assertEquals($Nest->one__two, "three");
+		$this->assertEquals("three",   $Nest->one__two);
 
 		$Nest = new Nest();
 		// Valid
 		$Nest->data(["bar" => "baz"]);
 		// First level
-		$this->assertEquals($Nest->bar, "baz");
+		$this->assertEquals("baz",     $Nest->bar);
 		// Invalid, first level
-		$this->assertEquals($Nest->foo, null);
+		$this->assertEquals(null,      $Nest->foo);
 		// Invalid, nested
-		$this->assertEquals($Nest->one__two, null);
+		$this->assertEquals(null,      $Nest->one__two);
 	}
 
 	public function testTo() {

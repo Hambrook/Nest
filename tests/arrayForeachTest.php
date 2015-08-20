@@ -16,8 +16,8 @@ class arrayForeachTest extends PHPUnit_Framework_TestCase {
 
 	public function testForeachIndexed() {
 		$array = [
-			"one" => "a",
-			"two" => "b",
+			"one"   => "a",
+			"two"   => "b",
 			"three" => "c",
 		];
 
@@ -26,7 +26,7 @@ class arrayForeachTest extends PHPUnit_Framework_TestCase {
 		foreach ($Nest as $t) {
 			$tmp .= $t;
 		}
-		$this->assertEquals($tmp, "abc");
+		$this->assertEquals("abc", $tmp);
 	}
 
 	public function testForeachKeyed() {
@@ -41,7 +41,7 @@ class arrayForeachTest extends PHPUnit_Framework_TestCase {
 		foreach ($Nest as $t) {
 			$tmp .= $t;
 		}
-		$this->assertEquals($tmp, "abc");
+		$this->assertEquals("abc", $tmp);
 	}
 
 }

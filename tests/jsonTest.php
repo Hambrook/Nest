@@ -27,9 +27,9 @@ class jsonTest extends PHPUnit_Framework_TestCase {
 		$json = '{"foo":"bar","one":{"two":"three"}}';
 		$Nest->loadJSON($json);
 		// Valid
-		$this->assertEquals($Nest->foo, "bar");
+		$this->assertEquals("bar",     $Nest->foo);
 		// Valid, with default
-		$this->assertEquals($Nest->one__two, "three");
+		$this->assertEquals("three",   $Nest->one__two);
 	}
 
 	/**
@@ -39,7 +39,7 @@ class jsonTest extends PHPUnit_Framework_TestCase {
 		$Nest->foo = "newfoo";
 		$Nest->one__two = "four";
 		$json = $Nest->toJSON(false);
-		$this->assertEquals($json, '{"foo":"newfoo","one":{"two":"four"}}');
+		$this->assertEquals('{"foo":"newfoo","one":{"two":"four"}}', $json);
 	}
 
 }

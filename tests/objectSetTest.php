@@ -26,9 +26,9 @@ class objectSetTest extends PHPUnit_Framework_TestCase {
 	public function testSet() {
 		$Nest = new Nest([]);
 		// Setting empty array
-		$this->assertEquals($Nest->set("foo")->get("foo"), []);
+		$this->assertEquals([],        $Nest->set("foo")->get("foo"));
 		// Setting value
-		$this->assertEquals($Nest->set("bar", "baz")->get("bar"), "baz");
+		$this->assertEquals("baz",     $Nest->set("bar", "baz")->get("bar"));
 	}
 
 	/**
@@ -38,9 +38,9 @@ class objectSetTest extends PHPUnit_Framework_TestCase {
 		$Nest = new Nest([]);
 		// Setting empty array
 		$key = ["one", "two"];
-		$this->assertEquals($Nest->set($key)->get($key), []);
+		$this->assertEquals([],        $Nest->set($key)->get($key));
 		// Valid
-		$this->assertEquals($Nest->set($key, "three")->get($key), "three");
+		$this->assertEquals("three",   $Nest->set($key, "three")->get($key));
 	}
 
 	/**
@@ -50,7 +50,7 @@ class objectSetTest extends PHPUnit_Framework_TestCase {
 		$Nest = new Nest([]);
 		// Valid, 1 level)
 		$Nest->foo = "bar";
-		$this->assertEquals($Nest->foo, "bar");
+		$this->assertEquals("bar",     $Nest->foo);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class objectSetTest extends PHPUnit_Framework_TestCase {
 		$Nest = new Nest([]);
 		// Invalid, 1 level
 		$Nest->one__two = "four";
-		$this->assertEquals($Nest->one__two, "four");
+		$this->assertEquals("four",    $Nest->one__two);
 	}
 
 }
