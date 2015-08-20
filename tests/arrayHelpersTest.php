@@ -43,8 +43,8 @@ class arrayHelpersTest extends PHPUnit_Framework_TestCase {
 		$Nest->append("one", "four");
 		$Nest->append("one", "five");
 		// Default
-		$this->assertEquals($Nest->one__0, "four");
-		$this->assertEquals($Nest->one__1, "five");
+		$this->assertEquals("four",    $Nest->one__0);
+		$this->assertEquals("five",    $Nest->one__1);
 	}
 
 	/**
@@ -52,14 +52,14 @@ class arrayHelpersTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCount($Nest) {
 		// No default
-		$this->assertEquals($Nest->count(), 2);
+		$this->assertEquals(2,         $Nest->count());
 		// Default
-		$this->assertEquals($Nest->count(false, 5), 2);
+		$this->assertEquals(2,         $Nest->count(false, 5));
 		// Nested
-		$this->assertEquals($Nest->count("one"), 1);
+		$this->assertEquals(1,         $Nest->count("one"));
 		// Updated nested count
 		$Nest->one__four = "five";
-		$this->assertEquals($Nest->count("one"), 2);
+		$this->assertEquals(2,         $Nest->count("one"));
 	}
 
 	/**
@@ -71,13 +71,13 @@ class arrayHelpersTest extends PHPUnit_Framework_TestCase {
 		]);
 
 		// Existing value
-		$this->assertEquals($Nest->one__two, "three");
+		$this->assertEquals("three",   $Nest->one__two);
 		// New value
-		$this->assertEquals($Nest->one__four, "five");
+		$this->assertEquals("five",    $Nest->one__four);
 		// Count
-		$this->assertEquals($Nest->count("one"), 2);
+		$this->assertEquals(2,         $Nest->count("one"));
 		// Old top level value
-		$this->assertEquals($Nest->foo, "bar");
+		$this->assertEquals("bar",     $Nest->foo);
 	}
 
 }

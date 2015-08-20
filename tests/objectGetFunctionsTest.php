@@ -25,15 +25,15 @@ class objectGetFunctionsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGet($Nest) {
 		// Valid
-		$this->assertEquals($Nest->get("conditionalstring"), "noparam");
+		$this->assertEquals("noparam", $Nest->get("conditionalstring"));
 		// Valid, with default
-		$this->assertEquals($Nest->get("conditionalstring", "DEFAULT"), "noparam");
+		$this->assertEquals("noparam", $Nest->get("conditionalstring", "DEFAULT"));
 		// Valid, with param
-		$this->assertEquals($Nest->get([["conditionalstring", true]]), "withparam");
+		$this->assertEquals("withparam", $Nest->get([["conditionalstring", true]]));
 		// Invalid, no default
-		$this->assertEquals($Nest->get("BAD"), null);
+		$this->assertEquals(null,      $Nest->get("BAD"));
 		// Invalid, with default
-		$this->assertEquals($Nest->get("BAD", "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->get("BAD", "DEFAULT"));
 	}
 
 	/**
@@ -41,17 +41,17 @@ class objectGetFunctionsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetNested($Nest) {
 		// Valid, with param
-		$this->assertEquals($Nest->get("arrayfromfuncwithparams"), "three");
+		$this->assertEquals("three",   $Nest->get("arrayfromfuncwithparams"));
 		// Valid, with param
-		$this->assertEquals($Nest->get([["arrayfromfuncwithparams", false]]), "three");
+		$this->assertEquals("three",   $Nest->get([["arrayfromfuncwithparams", false]]));
 		// Valid, with param
-		$this->assertEquals($Nest->get([["arrayfromfuncwithparams", true], "one"]), "two");
+		$this->assertEquals("two",     $Nest->get([["arrayfromfuncwithparams", true], "one"]));
 		// Valid, with param and defualt
-		$this->assertEquals($Nest->get([["arrayfromfuncwithparams", true], "one"], "DEFAULT"), "two");
+		$this->assertEquals("two",     $Nest->get([["arrayfromfuncwithparams", true], "one"], "DEFAULT"));
 		// Invalid, with param and default
-		$this->assertEquals($Nest->get([["arrayfromfuncwithparams", true], "bad"], "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->get([["arrayfromfuncwithparams", true], "bad"], "DEFAULT"));
 		// Invalid, with default
-		$this->assertEquals($Nest->get([["BAD", true], "BAD"], "four"), "four");
+		$this->assertEquals("four",    $Nest->get([["BAD", true], "BAD"], "four"));
 	}
 
 	/**
@@ -59,13 +59,13 @@ class objectGetFunctionsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetMagic($Nest) {
 		// Valid, 1 level)
-		$this->assertEquals($Nest->conditionalstring, "noparam");
+		$this->assertEquals("noparam", $Nest->conditionalstring);
 		// Invalid, 1 level
-		$this->assertEquals($Nest->conditionalstring("DEFAULT"), "noparam");
+		$this->assertEquals("noparam", $Nest->conditionalstring("DEFAULT"));
 		// Invalid, 1 level, with default
-		$this->assertEquals($Nest->BAD, null);
+		$this->assertEquals(null,      $Nest->BAD);
 		// Invalid, 1 level, with default
-		$this->assertEquals($Nest->BAD("DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->BAD("DEFAULT"));
 	}
 
 	/**
@@ -73,17 +73,17 @@ class objectGetFunctionsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetNestedMagic($Nest) {
 		// Valid
-		$this->assertEquals($Nest->one__two, "three");
+		$this->assertEquals("three",   $Nest->one__two);
 		// Invalid
-		$this->assertEquals($Nest->BAD__two, null);
+		$this->assertEquals(null,      $Nest->BAD__two);
 		// Invalid
-		$this->assertEquals($Nest->one__BAD, null);
+		$this->assertEquals(null,      $Nest->one__BAD);
 		// Valid, with default
-		$this->assertEquals($Nest->one__two("default"), "three");
+		$this->assertEquals("three",   $Nest->one__two("default"));
 		// Invalid first, with default
-		$this->assertEquals($Nest->BAD__two("default"), "default");
+		$this->assertEquals("default", $Nest->BAD__two("default"));
 		// Invalid second, with default
-		$this->assertEquals($Nest->one__BAD("default"), "default");
+		$this->assertEquals("default", $Nest->one__BAD("default"));
 	}
 
 }

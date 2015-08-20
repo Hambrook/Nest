@@ -32,13 +32,13 @@ class arrayGetTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGet($Nest) {
 		// Valid
-		$this->assertEquals($Nest->get("foo"), "bar");
+		$this->assertEquals("bar",     $Nest->get("foo"));
 		// Valid, with default
-		$this->assertEquals($Nest->get("foo", "DEFAULT"), "bar");
+		$this->assertEquals("bar",     $Nest->get("foo", "DEFAULT"));
 		// Invalid, no default
-		$this->assertEquals($Nest->get("BAD"), null);
+		$this->assertEquals(null,      $Nest->get("BAD"));
 		// Invalid, with default
-		$this->assertEquals($Nest->get("BAD", "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->get("BAD", "DEFAULT"));
 	}
 
 	/**
@@ -46,17 +46,17 @@ class arrayGetTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetNested($Nest) {
 		// Valid
-		$this->assertEquals($Nest->get(["one", "two"]), "three");
+		$this->assertEquals("three",   $Nest->get(["one", "two"]));
 		// Valid, with default
-		$this->assertEquals($Nest->get(["one", "two"], "DEFAULT"), "three");
+		$this->assertEquals("three",   $Nest->get(["one", "two"], "DEFAULT"));
 		// Invalid first, no default
-		$this->assertEquals($Nest->get(["BAD", "two"]), null);
+		$this->assertEquals(null,      $Nest->get(["BAD", "two"]));
 		// Invalid second, no default
-		$this->assertEquals($Nest->get(["one", "BAD"]), null);
+		$this->assertEquals(null,      $Nest->get(["one", "BAD"]));
 		// Invalid first, with default
-		$this->assertEquals($Nest->get(["BAD", "two"], "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->get(["BAD", "two"], "DEFAULT"));
 		// Invalid second, with default
-		$this->assertEquals($Nest->get(["one", "BAD"], "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->get(["one", "BAD"], "DEFAULT"));
 	}
 
 	/**
@@ -64,13 +64,13 @@ class arrayGetTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetMagic($Nest) {
 		// Valid, 1 level)
-		$this->assertEquals($Nest->foo, "bar");
+		$this->assertEquals("bar",     $Nest->foo);
 		// Invalid, 1 level
-		$this->assertEquals($Nest->foo("DEFAULT"), "bar");
+		$this->assertEquals("bar",     $Nest->foo("DEFAULT"));
 		// Invalid, 1 level, with default
-		$this->assertEquals($Nest->BAD, null);
+		$this->assertEquals(null,      $Nest->BAD);
 		// Invalid, 1 level, with default
-		$this->assertEquals($Nest->BAD("DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->BAD("DEFAULT"));
 	}
 
 	/**
@@ -78,17 +78,17 @@ class arrayGetTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetNestedMagic($Nest) {
 		// Valid
-		$this->assertEquals($Nest->one__two, "three");
+		$this->assertEquals("three",   $Nest->one__two);
 		// Valid, with default
-		$this->assertEquals($Nest->one__two("DEFAULT"), "three");
+		$this->assertEquals("three",   $Nest->one__two("DEFAULT"));
 		// Invalid first, no default
-		$this->assertEquals($Nest->BAD__two, null);
+		$this->assertEquals(null,      $Nest->BAD__two);
 		// Invalid second, no default
-		$this->assertEquals($Nest->one__BAD, null);
+		$this->assertEquals(null,      $Nest->one__BAD);
 		// Invalid first, with default
-		$this->assertEquals($Nest->BAD__two("DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->BAD__two("DEFAULT"));
 		// Invalid second, with default
-		$this->assertEquals($Nest->one__BAD("DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", $Nest->one__BAD("DEFAULT"));
 	}
 
 }

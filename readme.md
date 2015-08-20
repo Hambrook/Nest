@@ -2,7 +2,7 @@
 ######By Rick Hambrook
 -----
 
-Nest is a PHP class that lets you easily get and set values in nested arrays and objects without worrying about errors or validation. You don't have to check if keys, properties or functions exist.
+Nest is a PHP class that lets you easily get and set values in nested arrays and objects without worrying about errors or missing data. You don't have to check if keys, properties or functions exist. It's all designed to fail gracefully.
 
 Need a value from an array that is returned by a function that requires parameters on an object which is stored in an array? Nest will get it for you, or return a default value if the one you want isn't there. Easy.
 
@@ -61,6 +61,9 @@ $value = $Nest->get(["nope", "two"], "safe");
 
 ##Who is it for?
 Nest is for working with arrays and objects were you aren't always sure of the data. It works great with the [Config](https://github.com/Hambrook/Config) class for storing configuration data for other classes or CLI scripts. But it can be used anywhere.
+
+##Where are the exceptions
+Nest doesn't through any exceptions, it's designed to work with default values instead of failing.
 
 ##Testing
 Install PHPUnit globally, then run it on the `tests` directory.

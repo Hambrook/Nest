@@ -38,17 +38,17 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testPlus($Nest) {
 		// Default
-		$this->assertEquals($Nest->plus("zero")->zero, 1);
+		$this->assertEquals(1,         $Nest->plus("zero")->zero);
 		// Default again
-		$this->assertEquals($Nest->plus("zero")->zero, 2);
+		$this->assertEquals(2,         $Nest->plus("zero")->zero);
 		// Plus 2
-		$this->assertEquals($Nest->plus("zero", 2)->zero, 4);
+		$this->assertEquals(4,         $Nest->plus("zero", 2)->zero);
 		// Default
-		$this->assertEquals($Nest->plus("notzero")->notzero, 6);
+		$this->assertEquals(6,         $Nest->plus("notzero")->notzero);
 		// Default again
-		$this->assertEquals($Nest->plus("notzero")->notzero, 7);
+		$this->assertEquals(7,         $Nest->plus("notzero")->notzero);
 		// Plus 2
-		$this->assertEquals($Nest->plus("notzero", 2)->notzero, 9);
+		$this->assertEquals(9,         $Nest->plus("notzero", 2)->notzero);
 	}
 
 	/**
@@ -56,11 +56,11 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testPlusEmpty($Nest) {
 		// Default
-		$this->assertEquals($Nest->plus("empty")->empty, 1);
+		$this->assertEquals(1,         $Nest->plus("empty")->empty);
 		// Default again
-		$this->assertEquals($Nest->plus("empty")->empty, 2);
+		$this->assertEquals(2,         $Nest->plus("empty")->empty);
 		// Plus 2
-		$this->assertEquals($Nest->plus("empty", 2)->empty, 4);
+		$this->assertEquals(4,         $Nest->plus("empty", 2)->empty);
 	}
 
 	/**
@@ -68,15 +68,15 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testPlusNested($Nest) {
 		// Valid
-		$this->assertEquals($Nest->plus(["one", "two"])->one__two, 4);
+		$this->assertEquals(4,         $Nest->plus(["one", "two"])->one__two);
 		// Valid, with default
-		$this->assertEquals($Nest->plus(["one", "two"])->one__two, 5);
+		$this->assertEquals(5,         $Nest->plus(["one", "two"])->one__two);
 		// Valid, with default
-		$this->assertEquals($Nest->plus(["one", "two"], 2)->one__two, 7);
+		$this->assertEquals(7,         $Nest->plus(["one", "two"], 2)->one__two);
 		// Invalid first, no default
-		$this->assertEquals($Nest->plus(["BAD", "two"])->BAD__two, 1);
+		$this->assertEquals(1,         $Nest->plus(["BAD", "two"])->BAD__two);
 		// Invalid second, no default
-		$this->assertEquals($Nest->plus(["one", "BAD"])->one__BAD, 1);
+		$this->assertEquals(1,         $Nest->plus(["one", "BAD"])->one__BAD);
 	}
 
 	/**
@@ -84,17 +84,17 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testMinus($Nest) {
 		// Default
-		$this->assertEquals($Nest->minus("zero")->zero, -1);
+		$this->assertEquals(-1,        $Nest->minus("zero")->zero);
 		// Default again
-		$this->assertEquals($Nest->minus("zero")->zero, -2);
+		$this->assertEquals(-2,        $Nest->minus("zero")->zero);
 		// Minus 2
-		$this->assertEquals($Nest->minus("zero", 2)->zero, -4);
+		$this->assertEquals(-4,        $Nest->minus("zero", 2)->zero);
 		// Default
-		$this->assertEquals($Nest->minus("notzero")->notzero, 4);
+		$this->assertEquals(4,         $Nest->minus("notzero")->notzero);
 		// Default again
-		$this->assertEquals($Nest->minus("notzero")->notzero, 3);
+		$this->assertEquals(3,         $Nest->minus("notzero")->notzero);
 		// Plus 2
-		$this->assertEquals($Nest->minus("notzero", 2)->notzero, 1);
+		$this->assertEquals(1,         $Nest->minus("notzero", 2)->notzero);
 	}
 
 	/**
@@ -102,11 +102,11 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testMinusEmpty($Nest) {
 		// Default
-		$this->assertEquals($Nest->minus("empty")->empty, -1);
+		$this->assertEquals(-1,        $Nest->minus("empty")->empty);
 		// Default again
-		$this->assertEquals($Nest->minus("empty")->empty, -2);
+		$this->assertEquals(-2,        $Nest->minus("empty")->empty);
 		// Minus 2
-		$this->assertEquals($Nest->minus("empty", 2)->empty, -4);
+		$this->assertEquals(-4,        $Nest->minus("empty", 2)->empty);
 	}
 
 	/**
@@ -114,15 +114,15 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testMinusNested($Nest) {
 		// Valid
-		$this->assertEquals($Nest->minus(["one", "two"])->one__two, 2);
+		$this->assertEquals(2,         $Nest->minus(["one", "two"])->one__two);
 		// Valid, with default
-		$this->assertEquals($Nest->minus(["one", "two"])->one__two, 1);
+		$this->assertEquals(1,         $Nest->minus(["one", "two"])->one__two);
 		// Valid, with default
-		$this->assertEquals($Nest->minus(["one", "two"], 2)->one__two, -1);
+		$this->assertEquals(-1,        $Nest->minus(["one", "two"], 2)->one__two);
 		// Invalid first, no default
-		$this->assertEquals($Nest->minus(["BAD", "two"])->BAD__two, -1);
+		$this->assertEquals(-1,        $Nest->minus(["BAD", "two"])->BAD__two);
 		// Invalid second, no default
-		$this->assertEquals($Nest->minus(["one", "BAD"])->one__BAD, -1);
+		$this->assertEquals(-1,        $Nest->minus(["one", "BAD"])->one__BAD);
 	}
 
 }

@@ -8,7 +8,7 @@ namespace Hambrook;
  * Easily get and set nested items within arrays and objects without the hassle of validation.
  *
  * @package    Nest
- * @version    1.1.1
+ * @version    1.2.0
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
  * @license    https://www.gnu.org/licenses/gpl.txt  GNU General Public License v3
@@ -26,7 +26,7 @@ namespace Hambrook;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-class Nest implements \Iterator {
+class Nest extends \ArrayObject {
 	// Scope all of this inside one variable to minimise collisions
 	private $_ = [
 		"data"           => [],
@@ -60,13 +60,17 @@ class Nest implements \Iterator {
 	 *
 	 * @todo    Add support for function arguments on objects by adding callables to the path array
 	 */
-	public function get($path=false, $default=null) {
+	public function get($path=false, $default=null, $issetCheck=false) {
 		if (func_num_args() == 0 || $path === false) {
-			return $this->_["data"];
+			return ($issetCheck) ? isset($this->_["data"]) : $this->_["data"];
+		}
+
+		if ($issetCheck) {
+			$default = false;
 		}
 
 		$var = $this->_["data"];
-		if (!is_array($var) && !is_object($var)) { return $default; }
+		if (!is_array($var) && !is_object($var) && !$issetCheck) { return $default; }
 		if (!is_array($path)) { $path = [$path]; }
 		foreach ($path as $level) {
 			if (is_array($level)) {
@@ -99,7 +103,7 @@ class Nest implements \Iterator {
 			}
 		}
 
-		return $var;
+		return ($issetCheck) ?: $var;
 	}
 
 	/**
@@ -112,7 +116,11 @@ class Nest implements \Iterator {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function set($path, $value=null) {
+	public function set($path=false, $value=null) {
+		if ($path === false) {
+			$this->_["data"] = $value;
+			return $this;
+		}
 		if (!is_array($path)) { $path = [$path]; }
 		$tmp =& $this->_["data"];
 		foreach ($path as $level) {
@@ -139,6 +147,50 @@ class Nest implements \Iterator {
 		$this->_["dirty"] = true;
 
 		return $this;
+	}
+
+	/**
+	 * EXISTS
+	 *
+	 * Determine if a value is set or not
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  bool                 Whether or not the value is set
+	 */
+	public function exists($path=false) {
+		return $this->get($path, false, true);
+	}
+
+	/**
+	 * UNSET
+	 *
+	 * Determine if a value is set or not
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  this                 This
+	 */
+	public function delete($path=false) {
+		if (!is_array($path)) {
+			$path = [$path];
+		}
+		// Is there nothing to unset?
+		if (!$this->exists($path)) { return $this; }
+		$key = array_pop($path);
+		if (!$this->exists($path)) { return $this; }
+		$tmp = $this->get($path);
+		if (is_array($tmp)) {
+			unset($tmp[$key]);
+		}
+		if (is_object($tmp)) {
+			unset($tmp->$key);
+		}
+		$this->set($path, $tmp);
+		return $this;
+	}
+	public function remove($path=false) {
+		return $this->delete($path);
 	}
 
 	/**
@@ -232,7 +284,7 @@ class Nest implements \Iterator {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function append($path, $value=null, $force=true) {
+	public function append($path=false, $value=null, $force=true) {
 		$tmp = $this->get($path);
 		if (!is_array($tmp)) {
 			if (!$force) {
@@ -243,6 +295,42 @@ class Nest implements \Iterator {
 		$tmp[] = $value;
 		$this->set($path, $tmp);
 
+		return $this;
+	}
+
+	/**
+	 * SORT
+	 *
+	 * Sort an array by sort method
+	 *
+	 * @param   array|string     $path             The path to the nested array sort
+	 * @param   string           $method           Optional sort method
+	 * @param   callable|string  $flagsOrCallable  Optional flags or callback
+	 *
+	 * @return  $this                              Return self, for chaining
+	 */
+	public function sort($path=false, $method="", $flagsOrCallable=false) {
+		$data = $this->get($path);
+		$tmp = &$data;
+
+		if (!is_array($tmp)) {
+			return $this;
+		}
+
+		if (!is_callable($method)) {
+			$method = $method."sort";
+		}
+		if (!is_callable($method)) {
+			return $this;
+		}
+
+		if ($flagsOrCallable) {
+			call_user_func($method, $tmp, $flagsOrCallable);
+		} else {
+			call_user_func($method, $tmp);
+		}
+
+		$this->set($path, $tmp);
 		return $this;
 	}
 
@@ -276,7 +364,7 @@ class Nest implements \Iterator {
 	 *
 	 * @return  $this                 Return self, for chaining
 	 */
-	public function merge($path, $value=[], $force=true) {
+	public function merge($path=false, $value=[], $force=true) {
 		$tmp = $this->get($path);
 		if (!is_array($value) || !count($value)) {
 			return $this;
@@ -293,6 +381,10 @@ class Nest implements \Iterator {
 		return $this;
 	}
 
+	public function getIterator() {
+		return new \ArrayIterator($this->_["data"]);
+    }
+
 
 	/*************************************************************************
 	 *  JSON FUNCTIONS                                                       *
@@ -305,7 +397,7 @@ class Nest implements \Iterator {
 	 *
 	 * @param   string  $json  The JSON string to decode and load
 	 *
-	 * @return  this           The generated JSON
+	 * @return  this           This
 	 */
 	public function loadJSON($json) {
 		$this->data(@json_decode($json, true));
@@ -381,6 +473,32 @@ class Nest implements \Iterator {
 			$this->_convertStringToPath($path),
 			$value
 		);
+	}
+
+	/**
+	 * __ISSET
+	 *
+	 * Magic isset method
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  bool                 Whether or not the value is set
+	 */
+	public function __isset($path=false) {
+		return $this->exists($this->_convertStringToPath($path));
+	}
+
+	/**
+	 * __UNSET
+	 *
+	 * Magic unset method
+	 *
+	 * @param   array|string  $path  String or array of array/object keys to the nested value
+	 *
+	 * @return  this                 This
+	 */
+	public function __unset($path=false) {
+		return $this->delete($this->_convertStringToPath($path));
 	}
 
 

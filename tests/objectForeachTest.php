@@ -20,7 +20,7 @@ class objectForeachTest extends PHPUnit_Framework_TestCase {
 		foreach ($Nest as $t) {
 			$tmp .= $t;
 		}
-		$this->assertEquals($tmp, "abc");
+		$this->assertEquals("abc",     $tmp);
 	}
 
 }

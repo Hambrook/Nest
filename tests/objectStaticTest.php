@@ -24,13 +24,13 @@ class objectStaticTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGet($data) {
 		// Valid
-		$this->assertEquals(Nest::_get($data, "foo"), "bar");
+		$this->assertEquals("bar",     Nest::_get($data, "foo"));
 		// Valid, with default
-		$this->assertEquals(Nest::_get($data, "foo", "DEFAULT"), "bar");
+		$this->assertEquals("bar",     Nest::_get($data, "foo", "DEFAULT"));
 		// Invalid, no default
-		$this->assertEquals(Nest::_get($data, "BAD"), null);
+		$this->assertEquals(null,      Nest::_get($data, "BAD"));
 		// Invalid, with default
-		$this->assertEquals(Nest::_get($data, "BAD", "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", Nest::_get($data, "BAD", "DEFAULT"));
 	}
 
 	/**
@@ -38,17 +38,17 @@ class objectStaticTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetNested($data) {
 		// Valid
-		$this->assertEquals(Nest::_get($data, ["one", "two"]), "three");
+		$this->assertEquals("three",   Nest::_get($data, ["one", "two"]));
 		// Valid, with default
-		$this->assertEquals(Nest::_get($data, ["one", "two"], "DEFAULT"), "three");
+		$this->assertEquals("three",   Nest::_get($data, ["one", "two"], "DEFAULT"));
 		// Invalid first, no default
-		$this->assertEquals(Nest::_get($data, ["BAD", "two"]), null);
+		$this->assertEquals(null,      Nest::_get($data, ["BAD", "two"]));
 		// Invalid second, no default
-		$this->assertEquals(Nest::_get($data, ["one", "BAD"]), null);
+		$this->assertEquals(null,      Nest::_get($data, ["one", "BAD"]));
 		// Invalid first, with default
-		$this->assertEquals(Nest::_get($data, ["BAD", "two"], "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", Nest::_get($data, ["BAD", "two"], "DEFAULT"));
 		// Invalid second, with default
-		$this->assertEquals(Nest::_get($data, ["one", "BAD"], "DEFAULT"), "DEFAULT");
+		$this->assertEquals("DEFAULT", Nest::_get($data, ["one", "BAD"], "DEFAULT"));
 	}
 
 	/**
@@ -56,9 +56,9 @@ class objectStaticTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testSet($data) {
 		// Valid
-		$this->assertEquals(Nest::_set($data, "foo", "newbar")->foo, "newbar");
+		$this->assertEquals("newbar",  Nest::_set($data, "foo", "newbar")->foo);
 		// Invalid, no default
-		$this->assertEquals(Nest::_set($data, "foo2", "newfoo")->foo2, "newfoo");
+		$this->assertEquals("newfoo",  Nest::_set($data, "foo2", "newfoo")->foo2);
 	}
 
 	/**
@@ -66,9 +66,9 @@ class objectStaticTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testSetNested($data) {
 		// Valid
-		$this->assertEquals(Nest::_set($data, ["one", "two"], "four")->one["two"], "four");
+		$this->assertEquals("four",    Nest::_set($data, ["one", "two"], "four")->one["two"]);
 		// Valid, with default
-		$this->assertEquals(Nest::_set($data, ["one", "two2"], "newtwo")->one["two2"], "newtwo");
+		$this->assertEquals("newtwo",  Nest::_set($data, ["one", "two2"], "newtwo")->one["two2"]);
 	}
 
 }
