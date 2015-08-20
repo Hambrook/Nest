@@ -26,7 +26,7 @@ namespace Hambrook;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-class Nest implements \Iterator {
+class Nest extends \ArrayObject {
 	// Scope all of this inside one variable to minimise collisions
 	private $_ = [
 		"data"           => [],
