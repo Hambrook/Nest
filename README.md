@@ -62,29 +62,22 @@ $value = $Nest->get(["nope", "two"], "safe");
 ##Who is it for?
 Nest is for working with arrays and objects were you aren't always sure of the data. It works great with the [Config](https://github.com/Hambrook/Config) class for storing configuration data for other classes or CLI scripts. But it can be used anywhere.
 
-##Where are the exceptions
-Nest doesn't through any exceptions, it's designed to work with default values instead of failing.
+##Where are the exceptions?
+Nest doesn't throw any exceptions, that's the rule. Nest was designed to fail gracefully with default values instead of using exceptions.
 
 ##Testing
-Install PHPUnit globally, then run it on the `tests` directory.
+Install PHPUnit globally, then run it on the `tests/` directory.
 
 ##Feedback
 Tell me if you loved it. Tell me if you hated it. Tell me if you used it and thought "meh". I'm keen to hear your feedback.
+
+##Contributing
+Feel free to fork this project and submit pull requests, or even just request features via the issue tracker. Please be descriptive with pull requests and match the existing code style.
 
 ##Roadmap
 * Add composer support
 * Add any other standard documentation that should be included
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
-
-##Changelog
-* `2015-06-23` fix(set): fix namespacing for stdClass
-* `2015-06-22` feat(tests): convert tests to PHPUnit (didn't bother bundling PHPUnit) and create more tests
-* `2015-06-18` feat(tests): update tests and 'foreach' tests
-* `2015-06-18` fix(foreach): fix foreach iteration not working on objects
-* `2015-06-17` feat(docs): make Config keyword a link
-* `2015-06-17` feat(docs): update docs formatting to include syntax highlighting on Github
-* `2015-06-16` feat(license): update license to GPLv3 and attach it properly
-* `2015-06-15` initial public release
 
 ##License
 Copyright &copy; 2015 Rick Hambrook

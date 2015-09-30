@@ -1,0 +1,9 @@
+2015-10-01 fix(docs): fix typos, add collision prevention for object methods and move the docs around a bit
+2015-06-23 fix(set): fix namespacing for stdClass
+2015-06-22 feat(tests): convert tests to PHPUnit (didn't bother bundling PHPUnit) and create more tests
+2015-06-18 feat(tests): update tests and 'foreach' tests
+2015-06-18 fix(foreach): fix foreach iteration not working on objects
+2015-06-17 feat(docs): make Config keyword a link
+2015-06-17 feat(docs): update docs formatting to include syntax highlighting on Github
+2015-06-16 feat(license): update license to GPLv3 and attach it properly
+2015-06-15 initial public release
