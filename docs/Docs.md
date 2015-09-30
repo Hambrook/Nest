@@ -99,6 +99,9 @@ class Foo {
 	function arrayfromfuncwithparams($v=false) {
 		return ($v) ? ["one" => "two"] : "three";
 	}
+	function data() {
+		return "data from inside object";
+	}
 }
 
 $Nest = new \Hambrook\Nest(new Foo());
@@ -116,6 +119,15 @@ echo $Nest->get([["arrayfromfuncwithparams",true],"one"])  // returns "two"
 ```
 
 _Note: Trying to set the value when the path contains an object function may produce unexpected results. Go ahead and try it, but have a fire extinguisher nearby._
+
+##Avoiding collisions with helper functions
+Nest has lots of helper functions, so if you've stored an object inside Nest and don't want Nest's helper functions to collide with the objects functions while using shortcut paths, you can prefix your shortcut paths with the separator... `__` (double underscore by default)
+```php
+$Nest = new \Hambrook\Nest(new Foo());
+var_dump($Nest->data);                                     // object(Foo)...
+var_dump($Nest->__data);                                   // string(23) "data from inside object"
+var_dump($Nest->get("data"));                              // string(23) "data from inside object"
+```
 
 #Functions
 ###`__construct()`
@@ -182,15 +194,15 @@ Decode the `$json` and replace the internal dataset with the data.
 Export the current dataset as JSON. `$pretty` will format the output in a more human-readable manner.
 
 #Unit Testing
-There a numerous tests built for the [PHPUnit](https://phpunit.de) testing package.You will need to install PHPUnit globally...
+There a numerous tests built for the [PHPUnit](https://phpunit.de) testing package. You will need to install PHPUnit globally...
 ```bash
 wget https://phar.phpunit.de/phpunit.phar
 chmod +x phpunit.phar
 sudo mv phpunit.phar /usr/local/bin/phpunit
 ```
-then run it on the `tests` directory.
+then run it on the `tests/` directory.
 ```bash
-phpunit path/to/Nest/tests
+phpunit path/to/Nest/tests/
 ```
 
 #License

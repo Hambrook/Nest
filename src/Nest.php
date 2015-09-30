@@ -8,7 +8,7 @@ namespace Hambrook;
  * Easily get and set nested items within arrays and objects without the hassle of validation.
  *
  * @package    Nest
- * @version    1.2.0
+ * @version    1.2.1
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
  * @license    https://www.gnu.org/licenses/gpl.txt  GNU General Public License v3
@@ -44,7 +44,7 @@ class Nest extends \ArrayObject {
 	 */
 	public function __construct($data=[], $magicSeparator="__") {
 		$this->_["data"]            = $data;
-		$this->_["magicSeparator"] = preg_quote($magicSeparator, "/");
+		$this->_["magicSeparator"]  = preg_quote($magicSeparator, "/");
 		$this->_["dirty"]           = true;
 	}
 
@@ -169,7 +169,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   array|string  $path  String or array of array/object keys to the nested value
 	 *
-	 * @return  this                 This
+	 * @return  $this                This
 	 */
 	public function delete($path=false) {
 		if (!is_array($path)) {
@@ -226,7 +226,7 @@ class Nest extends \ArrayObject {
 	 * @param   bool          $force    Force the value to be numeric, even if it's not
 	 * @param   float         $default  Default value to start with if existing value isn't numeric
 	 *
-	 * @return  $this                 Return self, for chaining
+	 * @return  $this                   Return self, for chaining
 	 */
 	public function plus($path, $value=1, $default=0) {
 		$tmp = $this->get($path);
@@ -252,7 +252,7 @@ class Nest extends \ArrayObject {
 	 * @param   bool          $force    Force the value to be numeric, even if it's not
 	 * @param   float         $default  Default value to start with if existing value isn't numeric
 	 *
-	 * @return  $this                 Return self, for chaining
+	 * @return  $this                   Return self, for chaining
 	 */
 	public function minus($path, $value=1, $default=0) {
 		$tmp = $this->get($path);
@@ -397,7 +397,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   string  $json  The JSON string to decode and load
 	 *
-	 * @return  this           This
+	 * @return  $this          This
 	 */
 	public function loadJSON($json) {
 		$this->data(@json_decode($json, true));
@@ -495,7 +495,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   array|string  $path  String or array of array/object keys to the nested value
 	 *
-	 * @return  this                 This
+	 * @return  $this                This
 	 */
 	public function __unset($path=false) {
 		return $this->delete($this->_convertStringToPath($path));
