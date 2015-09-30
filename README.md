@@ -77,6 +77,7 @@ Feel free to fork this project and submit pull requests, or even just request fe
 ##Roadmap
 * Add composer support
 * Add any other standard documentation that should be included
+* Maybe add a parameter to get() that allows specifying a validator callback
 * _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
 
 ##License
