@@ -27,7 +27,10 @@ namespace Hambrook;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class Nest extends \ArrayObject {
-	// Scope all of this inside one variable to minimise collisions
+
+	/**
+	 * @var  array  Scope all of this inside one variable to minimise collisions
+	 */
 	private $_ = [
 		"data"           => [],
 		"magicSeparator" => "__",
@@ -57,20 +60,18 @@ class Nest extends \ArrayObject {
 	 * @param   mixed         $default  The value to return if the requested value doesn't exist
 	 *
 	 * @return  mixed                   The value at the specified path, or the default if not found
-	 *
-	 * @todo    Add support for function arguments on objects by adding callables to the path array
 	 */
-	public function get($path=false, $default=null, $issetCheck=false) {
+	public function get($path=false, $default=null, $isSetCheck=false) {
 		if (func_num_args() == 0 || $path === false) {
-			return ($issetCheck) ? isset($this->_["data"]) : $this->_["data"];
+			return ($isSetCheck) ? isset($this->_["data"]) : $this->_["data"];
 		}
 
-		if ($issetCheck) {
+		if ($isSetCheck) {
 			$default = false;
 		}
 
 		$var = $this->_["data"];
-		if (!is_array($var) && !is_object($var) && !$issetCheck) { return $default; }
+		if (!is_array($var) && !is_object($var) && !$isSetCheck) { return $default; }
 		if (!is_array($path)) { $path = [$path]; }
 		foreach ($path as $level) {
 			if (is_array($level)) {
@@ -78,10 +79,9 @@ class Nest extends \ArrayObject {
 				if (is_object($var) &&  ($func = array_shift($level)) && method_exists($var, $func)) {
 					$var = @call_user_func_array([$var, $func], $level);
 					continue;
-				} else {
-					// no? oh well, have this instead.
-					return $default;
 				}
+				// no? oh well, have this instead.
+				return $default;
 			} else
 			// or an array property?
 			if (is_array($var) && array_key_exists($level, $var)) {
@@ -97,13 +97,12 @@ class Nest extends \ArrayObject {
 			if (is_object($var) && method_exists($var, $level)) {
 				$var = @call_user_func([$var, $level]);
 				continue;
-			} else {
-				// no? oh well, have this instead.
-				return $default;
 			}
+			// no? oh well, have this instead.
+			return $default;
 		}
 
-		return ($issetCheck) ?: $var;
+		return ($isSetCheck) ?: $var;
 	}
 
 	/**
@@ -198,7 +197,7 @@ class Nest extends \ArrayObject {
 	 *
 	 * Get or set the actual data array/object held by this class
 	 *
-	 * @param   array  $path        Array or object to set as the data
+	 * @param   array  $data        Array or object to set as the data
 	 *
 	 * @return  $this|array|object  The final array or object
 	 */
@@ -209,6 +208,23 @@ class Nest extends \ArrayObject {
 			return $this;
 		}
 		return $this->_["data"];
+	}
+
+	/**
+	 * KEYS
+	 *
+	 * Get a list of valid keys for the dataset
+	 *
+	 * @param   array  $path  Path to the data you want keys for
+	 *
+	 * @return  array         Array of keys for data at the path
+	 */
+	public function keys($path=false) {
+		$data = $this->get($path);
+		if (!is_array($data)) {
+			return [];
+		}
+		return array_keys($data);
 	}
 
 
@@ -381,6 +397,13 @@ class Nest extends \ArrayObject {
 		return $this;
 	}
 
+	/**
+	 * GETITERATOR
+	 *
+	 * Get an array iterator based on the data
+	 *
+	 * @return  ArrayIterator  Array iterator of the data
+	 */
 	public function getIterator() {
 		return new \ArrayIterator($this->_["data"]);
     }
@@ -401,7 +424,7 @@ class Nest extends \ArrayObject {
 	 */
 	public function loadJSON($json) {
 		$this->data(@json_decode($json, true));
-		$dirty = true;
+		$this->_["dirty"] = true;
 		return $this;
 	}
 
@@ -511,6 +534,8 @@ class Nest extends \ArrayObject {
 	 *
 	 * Get nested value from array or object without having to check each level
 	 *
+	 * @static
+	 *
 	 * @param   array|object  $var      The array or object to fetch data from
 	 * @param   array|string  $path     String or array of array/object keys to the nested value
 	 * @param   mixed         $default  The value to return if the requested value doesn't exist
@@ -527,6 +552,8 @@ class Nest extends \ArrayObject {
 	 * _SET (static)
 	 *
 	 * Get nested value from array or object without having to check each level
+	 *
+	 * @static
 	 *
 	 * @param   array|object  $var    The array or object to fetch data from
 	 * @param   array|string  $path   String or array of array/object keys to the nested value
