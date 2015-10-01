@@ -71,17 +71,15 @@ class Nest extends \ArrayObject {
 		}
 
 		$var = $this->_["data"];
-		if (!is_array($var) && !is_object($var) && !$isSetCheck) { return $default; }
+		if (!is_array($var) && !is_object($var)) { return $default; }
 		if (!is_array($path)) { $path = [$path]; }
 		foreach ($path as $level) {
 			if (is_array($level)) {
 				// is this level a function name and parameters?
-				if (is_object($var) &&  ($func = array_shift($level)) && method_exists($var, $func)) {
+				if (is_object($var) &&  ($func = array_shift($level)) && is_callable([$var, $func])) {
 					$var = @call_user_func_array([$var, $func], $level);
 					continue;
 				}
-				// no? oh well, have this instead.
-				return $default;
 			} else
 			// or an array property?
 			if (is_array($var) && array_key_exists($level, $var)) {
@@ -89,14 +87,16 @@ class Nest extends \ArrayObject {
 				continue;
 			} else
 			// maybe an object property?
-			if (is_object($var) && property_exists($var, $level)) {
-				$var = $var->$level;
-				continue;
-			} else
-			// how about an object method?
-			if (is_object($var) && method_exists($var, $level)) {
-				$var = @call_user_func([$var, $level]);
-				continue;
+			if (is_object($var)) {
+				if (property_exists($var, $level)) {
+					$var = $var->$level;
+					continue;
+				} else
+				// how about an object method?
+				if (is_callable([$var, $level])) {
+					$var = @call_user_func([$var, $level]);
+					continue;
+				}
 			}
 			// no? oh well, have this instead.
 			return $default;
