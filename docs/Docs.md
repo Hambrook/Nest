@@ -184,14 +184,14 @@ Count the items in the array at `$path` or return the `$default` value if it's n
 #JSON Functions
 
 ###`loadJSON()` // Update dataset to data from a JSON string
-`$this `**`loadJSON`**`(`_`string `**`$json`**_`)`
+`$this `**`loadJSON`**`(string `**`$json`**`)`
 
 Decode the `$json` and replace the internal dataset with the data.
 
-###`toJSON()` // Update dataset to data from a JSON string
-`string `**`toJSON`**`(`_`string `**`$json`**`, bool `**`$pretty`**`=true`_`)`
+###`toJSON()` // Encode the data to JSON and return it
+`string `**`toJSON`**`(`_`bool `**`$pretty`**`=true`_`)`
 
-Export the current dataset as JSON. `$pretty` will format the output in a more human-readable manner.
+Export the current dataset as a JSON string. `$pretty` will format the output in a more human-readable manner.
 
 #Unit Testing
 There a numerous tests built for the [PHPUnit](https://phpunit.de) testing package. You will need to install PHPUnit globally...
