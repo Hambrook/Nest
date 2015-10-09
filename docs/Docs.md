@@ -172,7 +172,7 @@ it either doesn't exist or is not numeric.
 Append the supplied `$value` to the array at `$path`. If the value at `$path` isn't an array, `$force` can let you convert it to an array.
 
 ###`count()` // Count the items in an array
-`$this `**`count`**`(`_`array|string `**`$path`**`=false, int `**`$default`**`=0`_`)`
+`int `**`count`**`(`_`array|string `**`$path`**`=false, int `**`$default`**`=0`_`)`
 
 Count the items in the array at `$path` or return the `$default` value if it's not an array.
 
@@ -189,7 +189,7 @@ Count the items in the array at `$path` or return the `$default` value if it's n
 Decode the `$json` and replace the internal dataset with the data.
 
 ###`toJSON()` // Update dataset to data from a JSON string
-`$this `**`toJSON`**`(`_`string `**`$json`**`, bool `**`$pretty`**`=true`_`)`
+`string `**`toJSON`**`(`_`string `**`$json`**`, bool `**`$pretty`**`=true`_`)`
 
 Export the current dataset as JSON. `$pretty` will format the output in a more human-readable manner.
 
