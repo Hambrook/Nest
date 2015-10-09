@@ -131,35 +131,35 @@ var_dump($Nest->get("data"));                              // string(23) "data f
 
 #Functions
 ###`__construct()`
-`Nest `**`__construct`**`(`*`array|object `**`$data`**`=[], [string `**`$magicSeparator`**`="__"]`*`)`
+`Nest `**`__construct`**`(`*`array|object `**`$data`**`=[][, string `**`$magicSeparator`**`="__"]`*`)`
 
 Create a new instance with the data supplied.
 
 ###`get()`  // Get the value at a path
-`mixed `**`get`**`(`_`array|string `**`$path`**`=false, [mixed `**`$default`**`=null]`_`)`
+`mixed `**`get`**`(`_`array|string `**`$path`**`=false[, mixed `**`$default`**`=null]`_`)`
 
 Get the value at a path, or the `$default` value if the value you're looking for isn't there.
 
 ###`set()`  // Set the value at a path
-`$this `**`set`**`(`_`array|string `**`$path`**`=false, [mixed `**`$value`**`=null]`_`)`
+`$this `**`set`**`(`_`array|string `**`$path`**`=false[, mixed `**`$value`**`=null]`_`)`
 
 Set the value at a path to `$value`.
 
 #Helper Functions
 
 ###`data()`  // Get or set the dataset
-`mixed `**`data`**`(`_`[`**`$data`**`=[]]`_`)`
+`mixed `**`data`**`(`_`[array|object `**`$data`**`=[]]`_`)`
 
 If `$data` is supplied then the dataset is overwritten with the new data, otherwise the existing data is returned.
 
 ###`minus()` // Decrease a numeric value at the path
-`$this `**`minus`**`(`_`array|string `**`$path`**`=false, [int|float `**`$value`**`=1], [int|float `**`$default`**`=0`_`)`
+`$this `**`minus`**`(`_`[array|string `**`$path`**`=false][, int|float `**`$value`**`=1][, int|float `**`$default`**`=0]`_`)`
 
 Subtract the numeric value at `$path` by `$value`. If `$default` is specified then the value will be overwritten with `$default` if
 it either doesn't exist or is not numeric.
 
 ###`plus()` // Increase a numeric value at the path
-`$this `**`plus`**`(`_`array|string `**`$path`**`=false, [int|float `**`$value`**`=1], [int|float `**`$default`**`=0`_`)`
+`$this `**`plus`**`(`_`[array|string `**`$path`**`=false][, int|float `**`$value`**`=1][, int|float `**`$default`**`=0]`_`)`
 
 Increase the numeric value at `$path` by `$value`. If `$default` is specified then the value will be overwritten with `$default` if
 it either doesn't exist or is not numeric.
@@ -167,12 +167,12 @@ it either doesn't exist or is not numeric.
 #Array Functions
 
 ###`append()` // Append to an array
-`$this `**`plus`**`(`_`array|string `**`$path`**`=false, [mixed `**`$value`**`=null], [bool `**`$force`**`=false`_`)`
+`$this `**`plus`**`(`_`[array|string `**`$path`**`=false][, mixed `**`$value`**`=null][, bool `**`$force`**`=false]`_`)`
 
 Append the supplied `$value` to the array at `$path`. If the value at `$path` isn't an array, `$force` can let you convert it to an array.
 
 ###`count()` // Count the items in an array
-`$this `**`count`**`(`_`array|string `**`$path`**`=false, [int `**`$default`**`=0]`_`)`
+`$this `**`count`**`(`_`[array|string `**`$path`**`=false][, int `**`$default`**`=0]`_`)`
 
 Count the items in the array at `$path` or return the `$default` value if it's not an array.
 
@@ -189,7 +189,7 @@ Count the items in the array at `$path` or return the `$default` value if it's n
 Decode the `$json` and replace the internal dataset with the data.
 
 ###`toJSON()` // Update dataset to data from a JSON string
-`$this `**`toJSON`**`(`_`string `**`$json`**`, [bool `**`$pretty`**`=true`_`)`
+`$this `**`toJSON`**`(`_`string `**`$json`**`], [bool `**`$pretty`**`=true]`_`)`
 
 Export the current dataset as JSON. `$pretty` will format the output in a more human-readable manner.
 
