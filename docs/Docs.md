@@ -131,7 +131,7 @@ var_dump($Nest->get("data"));                              // string(23) "data f
 
 #Functions
 ###`__construct()`
-`Nest `**`__construct`**`(`_`array|object `**`$data`**`=[], [string `**`$magicSeparator`**`="__"]`_`)`
+`Nest `**`__construct`**`(`*`array|object `**`$data`**`=[], [string `**`$magicSeparator`**`="__"]`*`)`
 
 Create a new instance with the data supplied.
 
