@@ -1,5 +1,9 @@
 <?php
 
+require_once(implode(DIRECTORY_SEPARATOR, [__DIR__, "..", "src", "Nest.php"]));
+
+use \Hambrook\Nest\Nest as Nest;
+
 /**
  * Tests for PHPUnit
  *
@@ -7,11 +11,6 @@
  * @copyright  2015 Rick Hambrook
  * @license    https://www.gnu.org/licenses/gpl.txt  GNU General Public License v3
  */
-
-require_once(implode(DIRECTORY_SEPARATOR, [__DIR__, "..", "src", "Nest.php"]));
-
-use \Hambrook\Nest as Nest;
-
 class arrayHelpersTest extends PHPUnit_Framework_TestCase {
 
 	private $data = [

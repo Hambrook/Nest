@@ -5,7 +5,7 @@
 Just create new new **Nest()** object and pass it an array or object.
 
 ```php
-$Nest = new \Hambrook\Nest(
+$Nest = new \Hambrook\Nest\Nest(
 	[
 		"foo" => "bar",
 		"one" => [
@@ -104,7 +104,7 @@ class Foo {
 	}
 }
 
-$Nest = new \Hambrook\Nest(new Foo());
+$Nest = new \Hambrook\Nest\Nest(new Foo());
 ```
 
 This works exactly like arrays, but you can use function names in the path. You can even specify function parameters too, but you have to use the `get()` function for those.
@@ -123,7 +123,7 @@ _Note: Trying to set the value when the path contains an object function may pro
 ##Avoiding collisions with helper functions
 Nest has lots of helper functions, so if you've stored an object inside Nest and don't want Nest's helper functions to collide with the objects functions while using shortcut paths, you can prefix your shortcut paths with the separator... `__` (double underscore by default)
 ```php
-$Nest = new \Hambrook\Nest(new Foo());
+$Nest = new \Hambrook\Nest\Nest(new Foo());
 var_dump($Nest->data);                                     // object(Foo)...
 var_dump($Nest->__data);                                   // string(23) "data from inside object"
 var_dump($Nest->get("data"));                              // string(23) "data from inside object"

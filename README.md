@@ -25,7 +25,7 @@ You don't have to worry about any key checks, or checking if things are set... J
 
 ##Example
 ```php
-$Nest = new \Hambrook\Nest(
+$Nest = new \Hambrook\Nest\Nest(
 	[
 		"foo" => "bar",
 		"one" => [
