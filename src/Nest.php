@@ -1,6 +1,6 @@
 <?php
 
-namespace Hambrook;
+namespace Hambrook\Nest;
 
 /**
  * NEST

@@ -1,0 +1,20 @@
+{
+	"name": "Hambrook/Nest",
+	"description": "Power up PHP arrays and objects and access nested data (even within functions) without worrying about validation.",
+	"license": "GPL-3.0",
+	"keywords": ["array", "object", "php"],
+	"authors": [
+		{
+			"name": "Rick Hambrook",
+			"email": "rick@rickhambrook.com",
+			"homepage": "http://www.rickhambrook.com"
+		}
+	],
+	"require": {},
+	"require-dev": {},
+	"autoload": {
+		"psr-4": {
+			"Hambrook\\Nest\\": "src"
+		}
+	}
+}
