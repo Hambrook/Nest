@@ -9,7 +9,7 @@ namespace Hambrook\Nest;
  *
  * @package    Nest
  *
- * @version    1.3.2
+ * @version    1.3.3
  *
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
