@@ -2,6 +2,8 @@
 ######By Rick Hambrook
 -----
 
+[![Build Status](https://travis-ci.org/Hambrook/Nest.svg?branch=master)](https://travis-ci.org/Hambrook/Nest)
+
 Nest is a PHP class that lets you easily get and set values in nested arrays and objects without worrying about errors or missing data. You don't have to check if keys, properties or functions exist. It's all designed to fail gracefully.
 
 Need a value from an array that is returned by a function that requires parameters on an object which is stored in an array? Nest will get it for you, or return a default value if the one you want isn't there. Easy.
