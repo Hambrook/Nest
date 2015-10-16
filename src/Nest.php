@@ -9,7 +9,7 @@ namespace Hambrook\Nest;
  *
  * @package    Nest
  *
- * @version    1.3.4
+ * @version    1.3.5
  *
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
@@ -342,11 +342,11 @@ class Nest extends \ArrayObject {
 			return $this;
 		}
 
+		$params = [&$tmp];
 		if ($flagsOrCallable) {
-			call_user_func($method, $tmp, $flagsOrCallable);
-		} else {
-			call_user_func($method, $tmp);
+			$params[] = $flagsOrCallable;
 		}
+		call_user_func_array($method, $params);
 
 		$this->set($path, $tmp);
 		return $this;
@@ -593,6 +593,28 @@ class Nest extends \ArrayObject {
 		);
 	}
 
+	/**
+	 * SERIALIZE
+	 *
+	 * Serialize data within the object
+	 *
+	 * @return  string  The serialized data ready for storage
+	 */
+	public function serialize() {
+		return serialize($this->_);
+	}
+
+	/**
+	 * UNSERIALIZE
+	 *
+	 * Restore serialized data
+	 *
+	 * @param   string  $data  Data to restore to the object
+	 */
+	public function unserialize($data) {
+		$this->_ = unserialize($data);
+	}
+
 
 	/*************************************************************************
 	 *  ITERATOR FUNCTIONS                                                   *
@@ -666,4 +688,5 @@ class Nest extends \ArrayObject {
 		$this->_["dirty"] = false;
 		return $this;
 	}
+
 }
