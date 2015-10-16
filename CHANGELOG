@@ -1,3 +1,5 @@
+2015-10-16 feat(php7): update to support PHP7
+2015-10-15 feat(docs): add Travis CI build status image
 2015-10-09 fix(docs): fix incorrect function names and broken formatting
 2015-10-01 fix(docs): fix typos, add collision prevention for object methods and move the docs around a bit
 2015-06-23 fix(set): fix namespacing for stdClass
