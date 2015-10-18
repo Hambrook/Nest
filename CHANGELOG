@@ -1,3 +1,4 @@
+2015-10-16 fix(docks): fix missing docs for $isSetCheck on get()
 2015-10-16 feat(php7): update to support PHP7
 2015-10-15 feat(docs): add Travis CI build status image
 2015-10-09 fix(docs): fix incorrect function names and broken formatting

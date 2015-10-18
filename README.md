@@ -67,6 +67,9 @@ Nest is for working with arrays and objects were you aren't always sure of the d
 ##Where are the exceptions?
 Nest doesn't throw any exceptions, that's the rule. Nest was designed to fail gracefully with default values instead of using exceptions.
 
+##What about the performance hit?
+Although Nest can be used anywhere, it was built primarily for CLI apps where milliseconds don't matter. I've kept speed in mind but it's not a primary concern. At some point I will add benchmarks and timing and see how much I can shave off the execution time.
+
 ##Testing
 Install PHPUnit globally, then run it on the `tests/` directory.
 
