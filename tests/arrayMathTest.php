@@ -60,6 +60,12 @@ class arrayMathTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(2,         $Nest->plus("empty")->empty);
 		// Plus 2
 		$this->assertEquals(4,         $Nest->plus("empty", 2)->empty);
+		// Default
+		$this->assertEquals(3,         $Nest->plus("empty2", 1, 2)->empty2);
+		// Default again
+		$this->assertEquals(4,         $Nest->plus("empty2")->empty2);
+		// Plus 2
+		$this->assertEquals(6,         $Nest->plus("empty2", 2)->empty2);
 	}
 
 	/**

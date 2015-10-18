@@ -9,7 +9,7 @@ namespace Hambrook\Nest;
  *
  * @package    Nest
  *
- * @version    1.3.6
+ * @version    1.3.7
  *
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
@@ -242,15 +242,15 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   array|string  $path     String or array of array/object keys to the nested value
 	 * @param   float         $value    The amount to increment by
-	 * @param   bool          $force    Force the value to be numeric, even if it's not
 	 * @param   float         $default  Default value to start with if existing value isn't numeric
 	 *
 	 * @return  $this                   Return self, for chaining
 	 */
 	public function plus($path, $value=1, $default=0) {
-		$tmp = $this->get($path);
+		$tmp = $this->get($path, $default);
 		if (!is_numeric($tmp)) {
-			if (func_num_args() > 2) {
+			// if no manual default was set, then don't override an existing non-numeric value
+			if (func_num_args() <= 2) {
 				return $this;
 			}
 			$tmp = $default;
@@ -268,15 +268,15 @@ class Nest extends \ArrayObject {
 	 *
 	 * @param   array|string  $path     String or array of array/object keys to the nested value
 	 * @param   float         $value    The amount to decrease by
-	 * @param   bool          $force    Force the value to be numeric, even if it's not
 	 * @param   float         $default  Default value to start with if existing value isn't numeric
 	 *
 	 * @return  $this                   Return self, for chaining
 	 */
 	public function minus($path, $value=1, $default=0) {
-		$tmp = $this->get($path);
+		$tmp = $this->get($path, $default);
 		if (!is_numeric($tmp)) {
-			if (func_num_args() > 2) {
+			// if no manual default was set, then don't override an existing non-numeric value
+			if (func_num_args() <= 2) {
 				return $this;
 			}
 			$tmp = $default;
