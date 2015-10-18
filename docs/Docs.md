@@ -136,9 +136,9 @@ var_dump($Nest->get("data"));                              // string(23) "data f
 Create a new instance with the data supplied.
 
 ###`get()`  // Get the value at a path
-`mixed `**`get`**`(`_`array|string `**`$path`**`=false, mixed `**`$default`**`=null`_`)`
+`mixed `**`get`**`(`_`array|string `**`$path`**`=false, mixed `**`$default`**`=null, bool `**`$isSetCheck`**`=false`_`)`
 
-Get the value at a path, or the `$default` value if the value you're looking for isn't there.
+Get the value at a path, or the `$default` value if the value you're looking for isn't there. Optionally pass `true` for `$isSetCheck` to simply check if the value exists.
 
 ###`set()`  // Set the value at a path
 `$this `**`set`**`(`_`array|string `**`$path`**`=false, mixed `**`$value`**`=null`_`)`

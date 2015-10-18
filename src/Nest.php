@@ -9,7 +9,7 @@ namespace Hambrook\Nest;
  *
  * @package    Nest
  *
- * @version    1.3.5
+ * @version    1.3.6
  *
  * @author     Rick Hambrook <rick@rickhambrook.com>
  * @copyright  2015 Rick Hambrook
@@ -58,10 +58,11 @@ class Nest extends \ArrayObject {
 	 *
 	 * Get nested value from array or object without having to check each level
 	 *
-	 * @param   array|string  $path     String or array of array/object keys to the nested value
-	 * @param   mixed         $default  The value to return if the requested value doesn't exist
+	 * @param   array|string  $path        String or array of array/object keys to the nested value
+	 * @param   mixed         $default     The value to return if the requested value doesn't exist
+	 * @param   bool          $isSetCheck  Only check if the value is set, don't bother with the value
 	 *
-	 * @return  mixed                   The value at the specified path, or the default if not found
+	 * @return  mixed                      The value at the specified path, or the default if not found. Bool if using $isSetCheck
 	 */
 	public function get($path=false, $default=null, $isSetCheck=false) {
 		if (func_num_args() == 0 || $path === false) {
