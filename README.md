@@ -1,6 +1,4 @@
 #Nest
-######By Rick Hambrook
------
 
 [![Build Status](https://travis-ci.org/Hambrook/Nest.svg?branch=master)](https://travis-ci.org/Hambrook/Nest)
 
