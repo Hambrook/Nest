@@ -80,10 +80,9 @@ Tell me if you loved it. Tell me if you hated it. Tell me if you used it and tho
 Feel free to fork this project and submit pull requests, or even just request features via the issue tracker. Please be descriptive with pull requests and match the existing code style.
 
 ##Roadmap
-* PHP7 support
 * Add any other standard documentation that should be included
 * Maybe add a parameter to get() that allows specifying a validator callback
-* _If you have an idea, [let me know](mailto:rick@rickhambrook.com)._
+* _If you have an idea, [let me know](https://github.com/Hambrook/Nest/issues)._
 
 ##License
 Copyright &copy; 2015 Rick Hambrook
