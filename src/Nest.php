@@ -48,9 +48,11 @@ class Nest extends \ArrayObject {
 	 * @param  string  $magicSeparator  String to separate path levels for magic methods
 	 */
 	public function __construct($data=[], $magicSeparator="__") {
-		$this->_["data"]            = $data;
-		$this->_["magicSeparator"]  = preg_quote($magicSeparator, "/");
-		$this->_["dirty"]           = true;
+		$this->_["dirty"] = true;
+		$this->_["data"]  = $data;
+		if (is_string($magicSeparator) && strlen($magicSeparator)) {
+			$this->_["magicSeparator"] = $magicSeparator;
+		}
 	}
 
 	/**
@@ -79,7 +81,7 @@ class Nest extends \ArrayObject {
 		foreach ($path as $level) {
 			if (is_array($level)) {
 				// is this level a function name and parameters?
-				if (is_object($var) &&  ($func = array_shift($level)) && is_callable([$var, $func])) {
+				if (is_object($var) && ($func = array_shift($level)) && is_callable([$var, $func])) {
 					$var = @call_user_func_array([$var, $func], $level);
 					continue;
 				}
@@ -586,11 +588,12 @@ class Nest extends \ArrayObject {
 	 * @return  array          The value at the specified path, or the default if not found
 	 */
 	public function _convertStringToPath($path) {
-		return preg_split(
-			"/".$this->_["magicSeparator"]."/",
-			ltrim($path, "_"),
-			NULL,
-			PREG_SPLIT_NO_EMPTY
+		return array_filter(
+			explode(
+				$this->_["magicSeparator"],
+				$path
+			),
+			"strlen"
 		);
 	}
 
